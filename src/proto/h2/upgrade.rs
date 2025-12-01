@@ -36,7 +36,14 @@ pub(super) fn pair<B>(
     )
 }
 
-pub(super) struct H2Upgraded {
+/// A representation of an upgraded HTTP/2 connection, allowing direct read and write access
+/// to the underlying HTTP/2 send and receive streams.
+///
+/// This type is used to downcast a [`hyper::upgrade::Upgraded`] object when the underlying
+/// protocol is HTTP/2. It implements [`Read`] and [`Write`], enabling bidirectional I/O
+/// operations on the upgraded stream.
+#[allow(missing_debug_implementations)]
+pub struct H2Upgraded {
     ping: Recorder,
     send_stream: UpgradedSendStreamBridge,
     recv_stream: RecvStream,

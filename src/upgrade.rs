@@ -54,6 +54,9 @@ use tokio::sync::oneshot;
 
 use crate::common::io::Rewind;
 
+#[cfg(all(any(feature = "client", feature = "server"), feature = "http2"))]
+pub use crate::proto::h2::upgrade::H2Upgraded;
+
 /// An upgraded HTTP connection.
 ///
 /// This type holds a trait object internally of the original IO that
