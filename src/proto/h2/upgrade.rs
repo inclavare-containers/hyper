@@ -87,7 +87,7 @@ where
 
             if me.h2_tx.capacity() == 0 {
                 // poll_capacity oddly needs a loop
-                'capacity: loop {
+                loop {
                     match me.h2_tx.poll_capacity(cx) {
                         Poll::Ready(Some(Ok(0))) => {}
                         Poll::Ready(Some(Ok(_))) => break,
@@ -102,7 +102,7 @@ where
                                 "send stream capacity unexpectedly closed",
                             )));
                         }
-                        Poll::Pending => break 'capacity,
+                        Poll::Pending => return Poll::Pending,
                     }
                 }
             }
